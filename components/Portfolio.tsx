@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { PROJECTS } from '../constants';
 import { Project, ProjectCategory } from '../types';
 import { ArrowRight, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
@@ -21,6 +22,11 @@ const Portfolio: React.FC = () => {
     } else {
       document.body.style.overflow = 'auto';
     }
+    
+    // Cleanup ao desmontar
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
   }, [selectedProject]);
 
   const openModal = (project: Project) => {
@@ -55,6 +61,84 @@ const Portfolio: React.FC = () => {
     }
     return selectedProject.imageUrl;
   };
+
+  const ModalContent = () => (
+    <div className="modal-overlay" onClick={closeModal}>
+      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close-btn" onClick={closeModal}>
+          <X size={24} />
+        </button>
+        
+        <div className="modal-content-grid">
+          {/* Left Side: Gallery */}
+          <div className="modal-gallery">
+            <div className="gallery-main-viewport">
+              <img 
+                src={getCurrentImage()} 
+                alt={selectedProject?.title} 
+                className="gallery-main-img loaded"
+              />
+              
+              {/* Navigation Arrows */}
+              {selectedProject?.gallery && selectedProject.gallery.length > 1 && (
+                <>
+                  <button className="gallery-nav-btn gallery-nav-prev" onClick={prevImage}>
+                    <ChevronLeft size={24} />
+                  </button>
+                  <button className="gallery-nav-btn gallery-nav-next" onClick={nextImage}>
+                    <ChevronRight size={24} />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Thumbnails */}
+            {selectedProject?.gallery && selectedProject.gallery.length > 1 && (
+              <div className="gallery-thumbnails">
+                {selectedProject.gallery.map((img, idx) => (
+                  <button 
+                    key={idx} 
+                    className={`gallery-thumb-btn ${currentImageIndex === idx ? 'active' : ''}`}
+                    onClick={() => setCurrentImageIndex(idx)}
+                  >
+                    <img src={img} alt={`Thumbnail ${idx}`} className="gallery-thumb-img" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Right Side: Details */}
+          <div className="modal-details">
+            <span className="modal-category">{selectedProject?.category}</span>
+            <h3 className="modal-title">{selectedProject?.title}</h3>
+            
+            <p className="modal-desc-long">
+              {selectedProject?.longDescription || selectedProject?.description}
+            </p>
+
+            {selectedProject?.features && (
+              <div className="modal-features">
+                <h4 className="feature-title">Destaques do Projeto</h4>
+                <div className="feature-list">
+                  {selectedProject.features.map((feature, idx) => (
+                    <span key={idx} className="feature-tag">{feature}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <button className="modal-cta" onClick={() => {
+                closeModal();
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            }}>
+              Solicitar Orçamento Similar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <section id="portfolio" className="portfolio-section">
@@ -116,84 +200,8 @@ const Portfolio: React.FC = () => {
         </div>
       </div>
 
-      {/* Project Detail Modal */}
-      {selectedProject && (
-        <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close-btn" onClick={closeModal}>
-              <X size={24} />
-            </button>
-            
-            <div className="modal-content-grid">
-              {/* Left Side: Gallery */}
-              <div className="modal-gallery">
-                <div className="gallery-main-viewport">
-                  <img 
-                    src={getCurrentImage()} 
-                    alt={selectedProject.title} 
-                    className="gallery-main-img loaded"
-                  />
-                  
-                  {/* Navigation Arrows */}
-                  {selectedProject.gallery && selectedProject.gallery.length > 1 && (
-                    <>
-                      <button className="gallery-nav-btn gallery-nav-prev" onClick={prevImage}>
-                        <ChevronLeft size={24} />
-                      </button>
-                      <button className="gallery-nav-btn gallery-nav-next" onClick={nextImage}>
-                        <ChevronRight size={24} />
-                      </button>
-                    </>
-                  )}
-                </div>
-
-                {/* Thumbnails */}
-                {selectedProject.gallery && selectedProject.gallery.length > 1 && (
-                  <div className="gallery-thumbnails">
-                    {selectedProject.gallery.map((img, idx) => (
-                      <button 
-                        key={idx} 
-                        className={`gallery-thumb-btn ${currentImageIndex === idx ? 'active' : ''}`}
-                        onClick={() => setCurrentImageIndex(idx)}
-                      >
-                        <img src={img} alt={`Thumbnail ${idx}`} className="gallery-thumb-img" />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Right Side: Details */}
-              <div className="modal-details">
-                <span className="modal-category">{selectedProject.category}</span>
-                <h3 className="modal-title">{selectedProject.title}</h3>
-                
-                <p className="modal-desc-long">
-                  {selectedProject.longDescription || selectedProject.description}
-                </p>
-
-                {selectedProject.features && (
-                  <div className="modal-features">
-                    <h4 className="feature-title">Destaques do Projeto</h4>
-                    <div className="feature-list">
-                      {selectedProject.features.map((feature, idx) => (
-                        <span key={idx} className="feature-tag">{feature}</span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                <button className="modal-cta" onClick={() => {
-                   closeModal();
-                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}>
-                  Solicitar Orçamento Similar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Project Detail Modal - Rendered via Portal to escape parent transforms */}
+      {selectedProject && createPortal(<ModalContent />, document.body)}
     </section>
   );
 };
