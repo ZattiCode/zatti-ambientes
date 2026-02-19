@@ -3,16 +3,15 @@ import { Project, Testimonial } from './types';
 export const PROJECTS: Project[] = [
   {
     id: '1',
-    title: 'Cozinha Minimalista Areia',
-    category: 'Cozinha',
-    imageUrl: 'https://picsum.photos/800/600?random=1',
+    title: 'Home Office Executivo',
+    category: 'Escritório',
+    imageUrl: '/assets/projetos/background.png',
     description: 'Armários em MDF ultra-fosco cor areia com puxadores ocultos e ilha central em quartzo.',
     longDescription: 'Este projeto prioriza a pureza visual e a funcionalidade. Utilizamos MDF Ultra-fosco na cor Areia, que proporciona um toque aveludado e não marca digitais. A bancada em Quartzo Branco Puro cria uma ilha central robusta, ideal para preparo e refeições rápidas. As ferragens Blum com amortecimento garantem silêncio e durabilidade.',
     gallery: [
-      'https://picsum.photos/800/600?random=1',
-      'https://picsum.photos/800/600?random=101',
-      'https://picsum.photos/800/600?random=102',
-      'https://picsum.photos/800/600?random=103'
+      '/assets/projetos/background.png',
+      '/assets/projetos/escritorio2.png',
+      '/assets/projetos/escritorio3.png',
     ],
     features: ['MDF Ultra-fosco', 'Puxadores Ocultos', 'Iluminação LED embutida', 'Ilha em Quartzo']
   },
@@ -21,14 +20,14 @@ export const PROJECTS: Project[] = [
     title: 'Suíte Master Luxo',
     category: 'Quarto',
     imageUrl: 'https://picsum.photos/800/600?random=2',
-    description: 'Guarda-roupas com portas de vidro reflecta bronze e iluminação interna em LED.',
-    longDescription: 'Uma suíte projetada para ser um refúgio. O destaque é o closet com portas em perfil de alumínio champanhe e vidro Reflecta Bronze, que permite visualizar o interior quando a iluminação interna (acionada por sensor) se acende. A cabeceira estofada em linho cinza vai até o teto, ampliando o pé-direito.',
+    description: 'Composição moderna em MDF Grafite ultra-fosco com painel ripado em carvalho e nichos iluminados.',
+    longDescription: 'Este projeto equilibra a sobriedade dos tons escuros com o calor da madeira natural. Utilizamos MDF Ultra-fosco na cor Grafite, que oferece um toque aveludado e resistência a digitais, em contraste com o painel ripado em Carvalho que amplia a sensação de conforto. A marcenaria inteligente inclui uma estante aérea com LED embutido e um nicho dedicado para café, otimizando cada centímetro do ambiente de trabalho.',
     gallery: [
       'https://picsum.photos/800/600?random=2',
       'https://picsum.photos/800/600?random=201',
       'https://picsum.photos/800/600?random=202'
     ],
-    features: ['Vidro Reflecta Bronze', 'Sensor de Presença', 'Cabeceira Estofada', 'Penteadeira Suspensa']
+    features: ['MDF Grafite Matte', 'Painel Ripado Carvalho', 'Iluminação LED Linear', 'Nicho para Café']
   },
   {
     id: '3',

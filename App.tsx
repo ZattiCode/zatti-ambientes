@@ -132,7 +132,7 @@ function App() {
       <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container header-content">
           <a href="#" className="logo" style={{ color: !isScrolled && !mobileMenuOpen ? 'white' : 'var(--color-primary)' }}>
-            Zatti <span className="text-accent">Ambientes</span>
+            Zatti
           </a>
 
           {/* Desktop Nav */}
@@ -199,7 +199,7 @@ function App() {
       <section id="home" className="hero">
         <div className="hero-bg-wrapper">
           <img
-            src="https://picsum.photos/1920/1080?random=20"
+            src="/assets/projetos/background.png"
             alt="Interior de luxo"
             className="hero-img"
             style={{ animation: 'none' }} // Assuming animation is handled by CSS class or reset
@@ -216,8 +216,8 @@ function App() {
           
           <RevealOnScroll delay="delay-100">
             <h1 className="hero-title">
-              Design que transforma <br />
-              <span className="text-accent" style={{ fontStyle: 'italic' }}>sua vida</span>
+              Você sonha, <br />
+              <span className="text-accent" style={{ fontStyle: 'italic' }}>A gente realiza.</span>
             </h1>
           </RevealOnScroll>
 
@@ -233,7 +233,7 @@ function App() {
                 Ver Portfólio
               </a>
               <a href="#contact" className="btn-hero-secondary">
-                Falar com Designer
+                Fale conosco
               </a>
             </div>
           </RevealOnScroll>
@@ -269,7 +269,7 @@ function App() {
                   Foi essa visão que nos fez conquistar rapidamente a confiança de quem nos escolhe. Ao longo dos últimos anos, ampliamos nossa estrutura, investimos em tecnologia de ponta e formamos uma equipe que compartilha o mesmo compromisso: entregar soluções personalizadas que aliam beleza, funcionalidade e qualidade.
                 </p>
                 <p className="about-quote">
-                  "Você sonha. A gente realiza."
+                  "Você sonha, A gente realiza."
                 </p>
               </RevealOnScroll>
             </div>
@@ -430,7 +430,7 @@ function App() {
                 <span className="section-subtitle">Contato</span>
                 <h2 className="section-title">Vamos realizar seu sonho?</h2>
                 <p className="section-desc" style={{ marginLeft: 0 }}>
-                  Entre em contato conosco para agendar uma visita técnica ou solicitar um orçamento preliminar com a equipe Zatti Ambientes.
+                  Entre em contato com a gente pelo whattsapp ou email.
                 </p>
                 
                 <div className="contact-info-list" style={{ marginTop: '2rem' }}>
@@ -438,14 +438,14 @@ function App() {
                     <div className="contact-icon-box"><Phone size={20}/></div>
                     <div>
                       <p className="contact-text-label">Telefone / WhatsApp</p>
-                      <p className="contact-text-value">(11) 99999-9999</p>
+                      <p className="contact-text-value">(41) 99645-2421</p>
                     </div>
                   </div>
                   <div className="contact-item">
                     <div className="contact-icon-box"><Mail size={20}/></div>
                     <div>
                       <p className="contact-text-label">Email</p>
-                      <p className="contact-text-value">contato@zattiambientes.com.br</p>
+                      <p className="contact-text-value">zattiambientesplanejados@gmail.com</p>
                     </div>
                   </div>
                   <div className="contact-item">
@@ -474,7 +474,7 @@ function App() {
                 <div className="contact-socials">
                   <a href="#" className="social-btn"><Instagram size={20} /></a>
                   <a href="#" className="social-btn"><Facebook size={20} /></a>
-                  <a href="#" className="social-btn"><Linkedin size={20} /></a>
+                  <a href="#" className="social-btn"><Phone size={20} /></a>
                 </div>
               </div>
             </RevealOnScroll>
@@ -506,7 +506,7 @@ function App() {
                   </div>
                 </div>
                 <div className="hours-note">
-                  <p>* Atendimentos fora do horário comercial mediante agendamento prévio.</p>
+                  <p>* Atendimento apenas com horário marcado.</p>
                 </div>
               </div>
             </RevealOnScroll>
@@ -519,7 +519,7 @@ function App() {
         <div className="container footer-content">
           <div>
             <h3 className="font-serif font-bold text-white" style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Zatti <span className="text-accent">Ambientes</span></h3>
-            <p style={{ fontSize: '0.875rem' }}>© 2024 Zatti Ambientes. Todos os direitos reservados.</p>
+            <p style={{ fontSize: '0.875rem' }}>© 2021 Zatti Ambientes. Todos os direitos reservados.</p>
           </div>
           <div className="footer-links">
             <a href="#">Política de Privacidade</a>

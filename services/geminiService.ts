@@ -1,76 +1,60 @@
 import { ChatMessage } from "../types";
 
+// Aqui colocamos as rédeas curtas na IA para ela não falar demais
 const SYSTEM_INSTRUCTION = `
-Você é a consultora virtual da Zatti Ambientes.
-Seu tom é sofisticado, porém extremamente direto e breve.
+Você é a consultora virtual da Zatti Ambientes Planejados.
+Seu tom é educado, sofisticado e EXTREMAMENTE DIRETO.
 
-REGRAS RIGOROSAS:
-1. RESPOSTAS CURTAS: No máximo 2 a 3 frases curtas (aprox. 40 palavras).
-2. Nunca escreva parágrafos longos. Vá direto ao ponto.
-3. Se perguntarem preços, diga que depende do projeto e sugira clicar em "Orçamento".
-4. Foco: Combinação de cores, materiais (MDF, pedras) e funcionalidade.
+REGRAS OBRIGATÓRIAS:
+1. NUNCA escreva parágrafos longos.
+2. Suas respostas devem ter no MÁXIMO 2 ou 3 frases curtas.
+3. Seja objetiva e vá direto ao ponto.
+4. Se perguntarem preços, diga que projetos planejados dependem de medidas e materiais, e convide o cliente a clicar em "Orçamento".
+5. Foco exclusivo em móveis planejados, MDF, design de interiores e funcionalidade.
 `;
 
 export const sendMessageToGemini = async (
   history: ChatMessage[],
   newMessage: string
 ): Promise<string> => {
-  // Pega a chave do seu arquivo .env
-  const apiKey = "AIzaSyAyp1JKlAd206hirBHmfU9nr8pwZfnyAzU";
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-  if (!apiKey) {
-    return "Desculpe, a chave da API não foi encontrada.";
-  }
+  if (!apiKey) return "Erro: Chave API não encontrada.";
 
-  // URL direta da API do Google (não precisa de bibliotecas NPM)
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-  // Formata o histórico de mensagens para a API
+  // ATENÇÃO: Se o modelo que funcionou para você foi outro, apenas ajuste o nome aqui!
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
+  
   const contents = history.map(msg => ({
     role: msg.role === 'user' ? 'user' : 'model',
     parts: [{ text: msg.text }]
   }));
-
-  // Adiciona a mensagem atual que o usuário acabou de digitar
-  contents.push({
-    role: 'user',
-    parts: [{ text: newMessage }]
-  });
+  
+  contents.push({ role: 'user', parts: [{ text: newMessage }] });
 
   try {
-    // Faz a requisição direta usando o fetch nativo do navegador
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        // Envia as regras de comportamento
         systemInstruction: {
           parts: [{ text: SYSTEM_INSTRUCTION }]
         },
         contents: contents,
+        // Limita a criatividade e o tamanho do texto
         generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 150,
+          temperature: 0.5, 
+          maxOutputTokens: 100, // Corta a resposta fisicamente se ela tentar falar demais
         }
       })
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Erro da API:", errorData);
-      throw new Error("Falha na comunicação direta");
-    }
-
     const data = await response.json();
+    if (!response.ok) throw new Error(data.error?.message || "Erro na API");
     
-    // Extrai a resposta da IA do JSON retornado
-    const textoResposta = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    
-    return textoResposta || "Desculpe, não consegui formular uma resposta.";
-    
+    return data.candidates?.[0]?.content?.parts?.[0]?.text || "Sem resposta.";
   } catch (error) {
-    console.error("Erro no fetch:", error);
-    return "Tive um problema técnico momentâneo. Por favor, tente novamente.";
+    console.error("Erro Gemini:", error);
+    return "Erro de conexão com a IA.";
   }
 };

@@ -599,7 +599,7 @@ a {
 .zatti-line {
   height: 1px;
   width: 100%;
-  background-color: var(--color-accent);
+  background-color: var(--color-bg);
   margin-bottom: 0.5rem;
 }
 
