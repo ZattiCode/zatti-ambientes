@@ -6,6 +6,10 @@ export interface Project {
   category: ProjectCategory;
   imageUrl: string;
   description: string;
+  // Novos campos para detalhes
+  longDescription?: string;
+  gallery?: string[];
+  features?: string[];
 }
 
 export interface Testimonial {

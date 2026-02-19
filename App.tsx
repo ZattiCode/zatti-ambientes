@@ -1,15 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, Phone, Mail, MapPin, Instagram, Facebook, Linkedin, ChevronRight, CheckCircle2, ChevronLeft, Star, PhoneCall, PhoneIcon } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, Instagram, Facebook, Linkedin, ChevronRight, CheckCircle2, ChevronLeft, Star, Clock } from 'lucide-react';
 import { NAV_LINKS, TESTIMONIALS } from './constants';
 import Portfolio from './components/Portfolio';
 import AIConsultant from './components/AIConsultant';
 
 // Componente para efeito de revelação ao rolar
-const RevealOnScroll = ({ children, className = "", delay = "" }: { 
-  children: React.ReactNode, 
-  className?: string, 
-  delay?: string 
-}) => {
+const RevealOnScroll = ({ children, className = "", delay = "" }: { children: React.ReactNode, className?: string, delay?: string }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -214,8 +210,8 @@ function App() {
           
           <RevealOnScroll delay="delay-100">
             <h1 className="hero-title">
-              Você sonha, <br />
-              <span className="text-accent" style={{ fontStyle: 'italic' }}>A gente realiza.</span>
+              Design que transforma <br />
+              <span className="text-accent" style={{ fontStyle: 'italic' }}>sua vida</span>
             </h1>
           </RevealOnScroll>
 
@@ -267,7 +263,7 @@ function App() {
                   Foi essa visão que nos fez conquistar rapidamente a confiança de quem nos escolhe. Ao longo dos últimos anos, ampliamos nossa estrutura, investimos em tecnologia de ponta e formamos uma equipe que compartilha o mesmo compromisso: entregar soluções personalizadas que aliam beleza, funcionalidade e qualidade.
                 </p>
                 <p className="about-quote">
-                  "Você sonha, A gente realiza."
+                  "Você sonha. A gente realiza."
                 </p>
               </RevealOnScroll>
             </div>
@@ -287,21 +283,21 @@ function App() {
           </div>
 
           {/* Stats Counter */}
-<div className="stats-grid">
-  {[
-    { number: 20, suffix: "+", label: "Anos de experiência" },
-    { number: 1100, suffix: "+", label: "Clientes atendidos" },
-    { number: 1600, suffix: "+", label: "Projetos entregues" },
-    { number: 100, suffix: "%", label: "Satisfação garantida" },
-  ].map((stat, index) => (
-    <RevealOnScroll key={index} delay={`delay-${index * 100}`}>
-      <div className="stat-number">
-        <CountUp end={stat.number} suffix={stat.suffix} />
-      </div>
-      <div className="stat-label">{stat.label}</div>
-    </RevealOnScroll>
-  ))}
-</div>
+          <div className="stats-grid">
+            {[
+              { number: 20, suffix: "+", label: "Anos de experiência" },
+              { number: 1100, suffix: "+", label: "Clientes atendidos" },
+              { number: 1600, suffix: "+", label: "Projetos entregues" },
+              { number: 100, suffix: "%", label: "Satisfação garantida" },
+            ].map((stat, index) => (
+              <RevealOnScroll key={index} delay={`delay-${index * 100}`}>
+                <div className="stat-number">
+                  <CountUp end={stat.number} suffix={stat.suffix} />
+                </div>
+                <div className="stat-label">{stat.label}</div>
+              </RevealOnScroll>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -428,7 +424,7 @@ function App() {
                 <span className="section-subtitle">Contato</span>
                 <h2 className="section-title">Vamos realizar seu sonho?</h2>
                 <p className="section-desc" style={{ marginLeft: 0 }}>
-                  Preencha o formulário abaixo ou entre em contato via WhatsApp.
+                  Entre em contato conosco para agendar uma visita técnica ou solicitar um orçamento preliminar com a equipe Zatti Ambientes.
                 </p>
                 
                 <div className="contact-info-list" style={{ marginTop: '2rem' }}>
@@ -436,15 +432,14 @@ function App() {
                     <div className="contact-icon-box"><Phone size={20}/></div>
                     <div>
                       <p className="contact-text-label">Telefone / WhatsApp</p>
-                      <p className="contact-text-value"><a href="https://wa.me/5541996452421">(41) 99645-2421</a></p>
+                      <p className="contact-text-value">(11) 99999-9999</p>
                     </div>
                   </div>
                   <div className="contact-item">
                     <div className="contact-icon-box"><Mail size={20}/></div>
                     <div>
                       <p className="contact-text-label">Email</p>
-                      <p className="contact-text-value"><a href="mailto:zattiambientesplanejados@gmail.com">
-zattiambientesplanejados@gmail.com</a></p>
+                      <p className="contact-text-value">contato@zattiambientes.com.br</p>
                     </div>
                   </div>
                   <div className="contact-item">
@@ -471,50 +466,43 @@ zattiambientesplanejados@gmail.com</a></p>
                 </div>
 
                 <div className="contact-socials">
-                  <a href="https://www.instagram.com/zattiambientesplanejados/" className="social-btn"><Instagram size={20} /></a>
-                  <a href="https://www.facebook.com/people/Zatti-Ambientes-Planejados/61577355928391/" className="social-btn"><Facebook size={20} /></a>
-                  <a href="https://wa.me/5541996452421" className="social-btn"><PhoneIcon size={20} /></a>
+                  <a href="#" className="social-btn"><Instagram size={20} /></a>
+                  <a href="#" className="social-btn"><Facebook size={20} /></a>
+                  <a href="#" className="social-btn"><Linkedin size={20} /></a>
                 </div>
               </div>
             </RevealOnScroll>
 
             <RevealOnScroll delay="delay-200">
-              <form className="contact-form-card">
-                <div className="form-group">
-                  <div className="form-row">
-                    <div>
-                      <label className="form-label">Nome</label>
-                      <input type="text" className="form-input" placeholder="Seu nome completo" />
-                    </div>
-                    <div>
-                      <label className="form-label">Telefone</label>
-                      <input type="tel" className="form-input" placeholder="(00) 00000-0000" />
+              <div className="contact-form-card hours-card">
+                <h3 className="hours-title">Horários de Atendimento</h3>
+                <div className="hours-list">
+                  <div className="hours-item">
+                    <Clock size={20} className="text-accent" />
+                    <div className="hours-details">
+                      <span className="day-label">Segunda a Sexta</span>
+                      <span className="time-value">09:00 - 18:00</span>
                     </div>
                   </div>
-                  <div style={{ marginBottom: '1rem' }}>
-                    <label className="form-label">Email</label>
-                    <input type="email" className="form-input" placeholder="seu@email.com" />
+                  <div className="hours-item">
+                    <Clock size={20} className="text-accent" />
+                    <div className="hours-details">
+                      <span className="day-label">Sábado</span>
+                      <span className="time-value">09:00 - 13:00</span>
+                    </div>
                   </div>
-                  <div style={{ marginBottom: '1rem' }}>
-                    <label className="form-label">Ambiente de Interesse</label>
-                    <select className="form-select">
-                      <option>Cozinha Planejada</option>
-                      <option>Dormitório</option>
-                      <option>Home Office</option>
-                      <option>Banheiros</option>
-                      <option>Apartamento Completo</option>
-                      <option>Outro</option>
-                    </select>
+                  <div className="hours-item closed">
+                    <Clock size={20} style={{ color: '#a8a29e' }} />
+                    <div className="hours-details">
+                      <span className="day-label">Domingo</span>
+                      <span className="time-value">Fechado</span>
+                    </div>
                   </div>
-                  <div style={{ marginBottom: '1rem' }}>
-                    <label className="form-label">Mensagem</label>
-                    <textarea rows={4} className="form-textarea" placeholder="Conte um pouco sobre seu projeto..."></textarea>
-                  </div>
-                  <button type="submit" className="btn-submit">
-                    Enviar Solicitação
-                  </button>
                 </div>
-              </form>
+                <div className="hours-note">
+                  <p>* Atendimentos fora do horário comercial mediante agendamento prévio.</p>
+                </div>
+              </div>
             </RevealOnScroll>
           </div>
         </div>

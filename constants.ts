@@ -6,115 +6,159 @@ export const PROJECTS: Project[] = [
     title: 'Cozinha Minimalista Areia',
     category: 'Cozinha',
     imageUrl: 'https://picsum.photos/800/600?random=1',
-    description: 'Armários em MDF ultra-fosco cor areia com puxadores ocultos e ilha central em quartzo.'
+    description: 'Armários em MDF ultra-fosco cor areia com puxadores ocultos e ilha central em quartzo.',
+    longDescription: 'Este projeto prioriza a pureza visual e a funcionalidade. Utilizamos MDF Ultra-fosco na cor Areia, que proporciona um toque aveludado e não marca digitais. A bancada em Quartzo Branco Puro cria uma ilha central robusta, ideal para preparo e refeições rápidas. As ferragens Blum com amortecimento garantem silêncio e durabilidade.',
+    gallery: [
+      'https://picsum.photos/800/600?random=1',
+      'https://picsum.photos/800/600?random=101',
+      'https://picsum.photos/800/600?random=102',
+      'https://picsum.photos/800/600?random=103'
+    ],
+    features: ['MDF Ultra-fosco', 'Puxadores Ocultos', 'Iluminação LED embutida', 'Ilha em Quartzo']
   },
   {
     id: '2',
     title: 'Suíte Master Luxo',
     category: 'Quarto',
     imageUrl: 'https://picsum.photos/800/600?random=2',
-    description: 'Guarda-roupas com portas de vidro reflecta bronze e iluminação interna em LED.'
+    description: 'Guarda-roupas com portas de vidro reflecta bronze e iluminação interna em LED.',
+    longDescription: 'Uma suíte projetada para ser um refúgio. O destaque é o closet com portas em perfil de alumínio champanhe e vidro Reflecta Bronze, que permite visualizar o interior quando a iluminação interna (acionada por sensor) se acende. A cabeceira estofada em linho cinza vai até o teto, ampliando o pé-direito.',
+    gallery: [
+      'https://picsum.photos/800/600?random=2',
+      'https://picsum.photos/800/600?random=201',
+      'https://picsum.photos/800/600?random=202'
+    ],
+    features: ['Vidro Reflecta Bronze', 'Sensor de Presença', 'Cabeceira Estofada', 'Penteadeira Suspensa']
   },
   {
     id: '3',
     title: 'Home Office Executivo',
     category: 'Escritório',
     imageUrl: 'https://picsum.photos/800/600?random=3',
-    description: 'Mesa ampla em madeira nobre, estante vazada com estrutura metálica preta.'
+    description: 'Mesa ampla em madeira nobre, estante vazada com estrutura metálica preta.',
+    longDescription: 'Para este escritório, unimos o rústico da madeira Freijó com o industrial da serralheria preta. A estante vazada serve como divisória de ambiente sem bloquear a luz natural. A mesa possui calha para organização de cabos e carregamento por indução embutido na marcenaria.',
+    gallery: [
+      'https://picsum.photos/800/600?random=3',
+      'https://picsum.photos/800/600?random=301',
+      'https://picsum.photos/800/600?random=302'
+    ],
+    features: ['Madeira Freijó', 'Serralheria Industrial', 'Gestão de Cabos', 'Iluminação Focal']
   },
   {
     id: '4',
     title: 'Living Integrado',
     category: 'Sala',
     imageUrl: 'https://picsum.photos/800/600?random=4',
-    description: 'Painel ripado em freijó integrando sala de TV e jantar com bar oculto.'
+    description: 'Painel ripado em freijó integrando sala de TV e jantar com bar oculto.',
+    longDescription: 'A integração foi a chave deste projeto. O painel ripado percorre toda a parede principal, camuflando a porta de entrada e o acesso ao lavabo. Um nicho iluminado em mármore Travertino serve de apoio para a TV, enquanto um bar oculto se revela ao abrir as portas coplanares.',
+    gallery: [
+      'https://picsum.photos/800/600?random=4',
+      'https://picsum.photos/800/600?random=401',
+      'https://picsum.photos/800/600?random=402'
+    ],
+    features: ['Painel Ripado', 'Portas Coplanares', 'Mármore Travertino', 'Camuflagem de Portas']
   },
   {
     id: '5',
     title: 'Banheiro Spa',
     category: 'Banheiro',
     imageUrl: 'https://picsum.photos/800/600?random=5',
-    description: 'Gabinete suspenso com cuba esculpida e espelho orgânico com backlight.'
+    description: 'Gabinete suspenso com cuba esculpida e espelho orgânico com backlight.',
+    longDescription: 'Transformamos um banheiro comum em um SPA particular. O gabinete em MDF Naval (resistente à umidade) sustenta uma cuba esculpida em porcelanato. O espelho com formato orgânico possui retroiluminação em LED 3000k, criando uma atmosfera relaxante para o banho.',
+    gallery: [
+      'https://picsum.photos/800/600?random=5',
+      'https://picsum.photos/800/600?random=501',
+      'https://picsum.photos/800/600?random=502'
+    ],
+    features: ['MDF Naval', 'Cuba Esculpida', 'Espelho Orgânico', 'LED 3000k']
   },
   {
     id: '6',
     title: 'Cozinha Gourmet Dark',
     category: 'Cozinha',
     imageUrl: 'https://picsum.photos/800/600?random=6',
-    description: 'Tons de cinza chumbo e preto, eletrodomésticos embutidos e bancada em granito preto absoluto.'
+    description: 'Tons de cinza chumbo e preto, eletrodomésticos embutidos e bancada em granito preto absoluto.',
+    longDescription: 'Uma cozinha ousada e sofisticada. Utilizamos o padrão Grafite Intenso em toda a marcenaria, contrastando com puxadores em Cobre. A torre quente abriga forno e micro-ondas embutidos. A cristaleira com portas de vidro fumê traz leveza ao conjunto robusto.',
+    gallery: [
+      'https://picsum.photos/800/600?random=6',
+      'https://picsum.photos/800/600?random=601',
+      'https://picsum.photos/800/600?random=602',
+      'https://picsum.photos/800/600?random=603'
+    ],
+    features: ['Padrão Grafite', 'Vidro Fumê', 'Torre Quente', 'Puxadores Cobre']
   }
 ];
 
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: '1',
-    name: 'Gohu Chagas',
-    role: 'Cliente Residencial',
-    text: 'Empresa simplesmente fantástica, cumpriram a entrega e montagem do meu home office muito antes do prazo! A equipe comercial é excelente, sempre respondem de prontidão e tiram todas as dúvidas! E quanto ao material me surpreendi positivamente, tudo de excelente qualidade, recomendo fortemente a Zatti!',
-    avatarUrl: '/avatars/cliente 1.png',
+    name: 'Ana Souza',
+    role: 'Arquiteta',
+    text: 'A precisão nos acabamentos da Zatti Ambientes e o cumprimento dos prazos tornam a marca minha parceira número um.',
+    avatarUrl: 'https://picsum.photos/100/100?random=10'
   },
   {
     id: '2',
-    name: 'Juliana Antunes',
+    name: 'Roberto Campos',
     role: 'Cliente Residencial',
-    text: 'Lucas e sua equipe são profissionais impecáveis! Atendimento primoroso e pra mim o maior diferencial é entrega. Com prazo definido e sem atrasos. Adoramos os trabalhos que realizamos com a Zatti e certamente faremos novos projetos!',
-    avatarUrl: '/avatars/cliente 2.png',
+    text: 'Minha cozinha ficou exatamente como sonhei. O projeto 3D da Zatti bateu perfeitamente com a realidade.',
+    avatarUrl: 'https://picsum.photos/100/100?random=11'
   },
   {
     id: '3',
-    name: 'Silvia Di Buenno',
+    name: 'Mariana Lima',
     role: 'Empresária',
-    text: 'Sonhei muitos anos com a minha casa, minha cozinha, meus móveis, até que comprei meu apartamento, fechei com outra empresa pois ainda não conhecia a Zatti, levei um golpe e fiquei algum tempo sem móveis. Este mês minha cozinha foi montada pela equipe da Patrícia e Lucas da Zatti e estou me sentindo realizada, cada pedacinho planejado com carinho, montado do jeitinho que eu esperava, com estilo, qualidade e muito carinho. Eu só tenho a agradecer por participarem da realização de um sonho. Deus abençoe sempre. Super recomendo!',
-    avatarUrl: '/avatars/cliente 3.png',
+    text: 'O escritório da minha empresa ganhou outra vida com os móveis da Zatti. Funcionalidade e beleza unidas.',
+    avatarUrl: 'https://picsum.photos/100/100?random=12'
   },
   {
     id: '4',
-    name: 'Atomic MotorSport',
-    role: 'Empresa',
-    text: 'Lucas e toda equipe Entregam um serviço de primeira, tanto na parte de material, e mao de obra. Os móveis da nossa empresa ficaram muito lindos e bem acabados. Sempre recomendo.',
-    avatarUrl: '/avatars/cliente 4.png',
+    name: 'Carlos Mendes',
+    role: 'Advogado',
+    text: 'Profissionalismo do início ao fim. A montagem foi limpa e rápida. Recomendo de olhos fechados.',
+    avatarUrl: 'https://picsum.photos/100/100?random=13'
   },
   {
     id: '5',
-    name: 'Carol Schmidt',
-    role: 'Dentista',
-    text: 'Eu não tenho palavras para expressar minha satisfação com a Zatti ambientes. A Patrícia do início ao fim foi super atenciosa dando atenção a cada detalhe. Eu não conseguia fechar minha agenda de segunda a quinta para montagem dos móveis, o montador se dispôs a fazer a montagem no sábado a terça para que eu conseguisse trabalhar na quarta, isso só mostra a importância que a empresa dá a seus clientes. Agora a parte do acabamento dos móveis, superou qualquer expectativa, eu recomendo eles de olhos fechados, atendimento, atenção, qualidade impecável dos móveis',
-    avatarUrl: '/avatars/cliente 5.png',
+    name: 'Fernanda Oliveira',
+    role: 'Médica',
+    text: 'Amei meu closet! Cada detalhe foi pensado para aproveitar o espaço. O LED interno deu um toque especial.',
+    avatarUrl: 'https://picsum.photos/100/100?random=14'
   },
   {
     id: '6',
-    name: 'Gustavo Duarte',
-    role: 'Cliente Residencial',
-    text: 'Fui muito bem atendido pelo Lucas, me entregaram os móveis dentro do prazo e qualidade no geral me agradou muito, desde o atendimento, material e instalação, muito bom mesmo, recomendo.',
-    avatarUrl: '/avatars/cliente 6.png',
+    name: 'Lucas Pereira',
+    role: 'Chef de Cozinha',
+    text: 'Como chef, preciso de funcionalidade. A Zatti entendeu minha rotina e criou uma cozinha perfeita.',
+    avatarUrl: 'https://picsum.photos/100/100?random=15'
   },
   {
     id: '7',
-    name: 'Vinicius Silva',
-    role: 'Empresário',
-    text: 'Melhor empresa de móveis de Curitiba e Santa Catarina! Foram incríveis e me auxiliaram desde o início e ainda com um preço incrível, condição de pagamento excelente. Com certeza farei meus próximos móveis com eles !',
-    avatarUrl: '/avatars/cliente 7.png',
+    name: 'Patrícia Santos',
+    role: 'Designer de Interiores',
+    text: 'A qualidade do MDF e das ferragens é superior. Meus clientes sempre ficam satisfeitos com a durabilidade.',
+    avatarUrl: 'https://picsum.photos/100/100?random=16'
   },
   {
     id: '8',
-    name: 'Luiza Ferreira',
+    name: 'Ricardo Alves',
     role: 'Empresário',
-    text: 'Tivemos uma excelente experiência com a Zatti em atendimento, cumprimento de prazos, resolução de problemas de maneira rápida.. apenas elogios! Indico demais',
-    avatarUrl: '/avatars/cliente 8.png',
+    text: 'Fizemos toda a mobília da sede nova. O ambiente corporativo ficou moderno e acolhedor.',
+    avatarUrl: 'https://picsum.photos/100/100?random=17'
   },
   {
     id: '9',
-    name: 'Ana Carolina',
+    name: 'Juliana Costa',
     role: 'Cliente Residencial',
-    text: 'O atendimento foi ótimo desde o início do projeto até a entrega e a montagem. Cumpriram com o prazo e a qualidade é ótima. Toda a equipe é muito gentil e prestativa. Super recomendo.',
-    avatarUrl: '/avatars/cliente 9.png',
+    text: 'O atendimento pós-venda é excelente. Tive um pequeno ajuste e resolveram no dia seguinte.',
+    avatarUrl: 'https://picsum.photos/100/100?random=18'
   },
   {
     id: '10',
-    name: 'Manoel Oliveira',
-    role: 'Empresário',
-    text: 'Foi perfeita! Já fiz dois negócios com a empresa. Cumpre o prazo de entrega. Os montadores são educados e deixam o ambiente limpo. Super recomendo. Não vão se arrepender.',
-    avatarUrl: '/avatars/cliente 10.png',
+    name: 'Eduardo Rocha',
+    role: 'Engenheiro',
+    text: 'Precisão milimétrica. Encaixaram os móveis em paredes fora de esquadro com perfeição.',
+    avatarUrl: 'https://picsum.photos/100/100?random=19'
   }
 ];
 

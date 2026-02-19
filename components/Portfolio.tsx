@@ -1,16 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PROJECTS } from '../constants';
-import { ProjectCategory } from '../types';
-import { ArrowRight } from 'lucide-react';
+import { Project, ProjectCategory } from '../types';
+import { ArrowRight, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
 const categories: (ProjectCategory | 'Todos')[] = ['Todos', 'Cozinha', 'Quarto', 'Sala', 'Banheiro', 'Escritório'];
 
 const Portfolio: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'Todos'>('Todos');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const filteredProjects = activeCategory === 'Todos'
     ? PROJECTS
     : PROJECTS.filter(project => project.category === activeCategory);
+
+  // Bloquear scroll do body quando modal estiver aberta
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [selectedProject]);
+
+  const openModal = (project: Project) => {
+    setSelectedProject(project);
+    setCurrentImageIndex(0);
+  };
+
+  const closeModal = () => {
+    setSelectedProject(null);
+  };
+
+  const nextImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (!selectedProject || !selectedProject.gallery) return;
+    setCurrentImageIndex((prev) => 
+      prev === (selectedProject.gallery?.length || 1) - 1 ? 0 : prev + 1
+    );
+  };
+
+  const prevImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    if (!selectedProject || !selectedProject.gallery) return;
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? (selectedProject.gallery?.length || 1) - 1 : prev - 1
+    );
+  };
+
+  const getCurrentImage = () => {
+    if (!selectedProject) return '';
+    if (selectedProject.gallery && selectedProject.gallery.length > 0) {
+      return selectedProject.gallery[currentImageIndex];
+    }
+    return selectedProject.imageUrl;
+  };
 
   return (
     <section id="portfolio" className="portfolio-section">
@@ -39,7 +83,7 @@ const Portfolio: React.FC = () => {
         {/* Grid */}
         <div className="portfolio-grid">
           {filteredProjects.map((project) => (
-            <div key={project.id} className="project-card">
+            <div key={project.id} className="project-card" onClick={() => openModal(project)}>
               {/* Image */}
               <div className="project-img-wrapper">
                 <img
@@ -71,6 +115,85 @@ const Portfolio: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Project Detail Modal */}
+      {selectedProject && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close-btn" onClick={closeModal}>
+              <X size={24} />
+            </button>
+            
+            <div className="modal-content-grid">
+              {/* Left Side: Gallery */}
+              <div className="modal-gallery">
+                <div className="gallery-main-viewport">
+                  <img 
+                    src={getCurrentImage()} 
+                    alt={selectedProject.title} 
+                    className="gallery-main-img loaded"
+                  />
+                  
+                  {/* Navigation Arrows */}
+                  {selectedProject.gallery && selectedProject.gallery.length > 1 && (
+                    <>
+                      <button className="gallery-nav-btn gallery-nav-prev" onClick={prevImage}>
+                        <ChevronLeft size={24} />
+                      </button>
+                      <button className="gallery-nav-btn gallery-nav-next" onClick={nextImage}>
+                        <ChevronRight size={24} />
+                      </button>
+                    </>
+                  )}
+                </div>
+
+                {/* Thumbnails */}
+                {selectedProject.gallery && selectedProject.gallery.length > 1 && (
+                  <div className="gallery-thumbnails">
+                    {selectedProject.gallery.map((img, idx) => (
+                      <button 
+                        key={idx} 
+                        className={`gallery-thumb-btn ${currentImageIndex === idx ? 'active' : ''}`}
+                        onClick={() => setCurrentImageIndex(idx)}
+                      >
+                        <img src={img} alt={`Thumbnail ${idx}`} className="gallery-thumb-img" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Right Side: Details */}
+              <div className="modal-details">
+                <span className="modal-category">{selectedProject.category}</span>
+                <h3 className="modal-title">{selectedProject.title}</h3>
+                
+                <p className="modal-desc-long">
+                  {selectedProject.longDescription || selectedProject.description}
+                </p>
+
+                {selectedProject.features && (
+                  <div className="modal-features">
+                    <h4 className="feature-title">Destaques do Projeto</h4>
+                    <div className="feature-list">
+                      {selectedProject.features.map((feature, idx) => (
+                        <span key={idx} className="feature-tag">{feature}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <button className="modal-cta" onClick={() => {
+                   closeModal();
+                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}>
+                  Solicitar Orçamento Similar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
