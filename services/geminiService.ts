@@ -1,48 +1,38 @@
 import { GoogleGenAI } from "@google/genai";
 import { ChatMessage } from "../types";
 
-const apiKey = process.env.API_KEY;
-let aiClient: GoogleGenAI | null = null;
-
-if (apiKey) {
-  aiClient = new GoogleGenAI({ apiKey });
-}
-
 const SYSTEM_INSTRUCTION = `
-Você é a consultora virtual especialista em design de interiores e móveis planejados da empresa "Zatti Ambientes".
-Seu tom de voz é elegante, prestativo e profissional, refletindo a sofisticação da marca.
-Você deve ajudar clientes com dúvidas sobre:
-1. Combinação de cores e materiais (MDF, madeiras, vidros) para móveis sob medida.
-2. Otimização de espaços residenciais e comerciais.
-3. Tendências de decoração alinhadas ao estilo da Zatti Ambientes (Contemporâneo, Sofisticado).
-4. Funcionalidade de móveis (cozinhas, guarda-roupas, home office).
+Você é a consultora virtual da Zatti Ambientes.
+Seu tom é sofisticado, porém extremamente direto e breve.
 
-Regras:
-- Responda sempre em Português do Brasil.
-- Seja concisa, respostas com no máximo 3 parágrafos curtos.
-- Se perguntarem preços, diga que depende da personalização do projeto e sugira solicitar um orçamento no formulário do site.
-- Use emojis moderadamente para parecer amigável, mas mantendo a elegância.
-- Reforce que a Zatti Ambientes preza pela qualidade e acabamento impecável.
+REGRAS RIGOROSAS:
+1. RESPOSTAS CURTAS: No máximo 2 a 3 frases curtas (aprox. 40 palavras).
+2. Nunca escreva parágrafos longos. Vá direto ao ponto.
+3. Se perguntarem preços, diga que depende do projeto e sugira clicar em "Orçamento".
+4. Foco: Combinação de cores, materiais (MDF, pedras) e funcionalidade.
 `;
 
 export const sendMessageToGemini = async (
   history: ChatMessage[],
   newMessage: string
 ): Promise<string> => {
-  if (!aiClient) {
+  // Correção 1: Usando import.meta.env para ler a chave no Vite
+  const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+  if (!apiKey) {
     return "Desculpe, o serviço de IA não está configurado corretamente (API Key ausente).";
   }
 
   try {
-    // We reconstruct a lightweight history for the context, though strictly 
-    // for this simple implementation we might just use the messages directly if using the Chat API.
-    // Here we will use the chat model.
+    const aiClient = new GoogleGenAI({ apiKey: apiKey });
 
     const chat = aiClient.chats.create({
-      model: 'gemini-3-flash-preview',
+      // Correção 2: Utilizando um modelo válido e rápido para chat
+      model: 'gemini-2.0-flash', 
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
         temperature: 0.7,
+        maxOutputTokens: 150, 
       },
       history: history.map(msg => ({
         role: msg.role,
@@ -51,9 +41,9 @@ export const sendMessageToGemini = async (
     });
 
     const result = await chat.sendMessage({ message: newMessage });
-    return result.text || "Desculpe, não consegui processar sua resposta no momento.";
+    return result.text || "Desculpe, não consegui processar sua resposta.";
   } catch (error) {
     console.error("Erro ao comunicar com Gemini:", error);
-    return "Tive um problema técnico. Por favor, tente novamente em alguns instantes.";
+    return "Tive um problema técnico momentâneo. Por favor, tente novamente.";
   }
 };
