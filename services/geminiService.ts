@@ -16,15 +16,24 @@ export const sendMessageToGemini = async (
   history: ChatMessage[],
   newMessage: string
 ): Promise<string> => {
+<<<<<<< HEAD
   // Correção 1: Usando import.meta.env para ler a chave no Vite
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
   if (!apiKey) {
+=======
+  // A API Key deve estar configurada no ambiente (arquivo .env ou variáveis de sistema)
+  if (!process.env.API_KEY) {
+>>>>>>> 4a6aba5e4f187fb64fbe6163c67b67abf3dc92ea
     return "Desculpe, o serviço de IA não está configurado corretamente (API Key ausente).";
   }
 
   try {
+<<<<<<< HEAD
     const aiClient = new GoogleGenAI({ apiKey: apiKey });
+=======
+    const aiClient = new GoogleGenAI({ apiKey: process.env.API_KEY });
+>>>>>>> 4a6aba5e4f187fb64fbe6163c67b67abf3dc92ea
 
     const chat = aiClient.chats.create({
       // Correção 2: Utilizando um modelo válido e rápido para chat
@@ -32,7 +41,11 @@ export const sendMessageToGemini = async (
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
         temperature: 0.7,
+<<<<<<< HEAD
         maxOutputTokens: 150, 
+=======
+        maxOutputTokens: 150, // Força a resposta a ser curta fisicamente
+>>>>>>> 4a6aba5e4f187fb64fbe6163c67b67abf3dc92ea
       },
       history: history.map(msg => ({
         role: msg.role,

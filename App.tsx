@@ -4,8 +4,14 @@ import { NAV_LINKS, TESTIMONIALS } from './constants';
 import Portfolio from './components/Portfolio';
 import AIConsultant from './components/AIConsultant';
 
+interface RevealOnScrollProps {
+  children: React.ReactNode;
+  className?: string;
+  delay?: string;
+}
+
 // Componente para efeito de revelação ao rolar
-const RevealOnScroll = ({ children, className = "", delay = "" }: { children: React.ReactNode, className?: string, delay?: string }) => {
+const RevealOnScroll: React.FC<RevealOnScrollProps> = ({ children, className = "", delay = "" }) => {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
