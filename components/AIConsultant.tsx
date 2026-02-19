@@ -5,6 +5,7 @@ import { sendMessageToGemini } from '../services/geminiService';
 
 const AIConsultant: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showCallout, setShowCallout] = useState(true);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
@@ -17,7 +18,15 @@ const AIConsultant: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const toggleChat = () => setIsOpen(!isOpen);
+  const toggleChat = () => {
+    setIsOpen(!isOpen);
+    setShowCallout(false);
+  };
+
+  const closeCallout = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowCallout(false);
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -26,6 +35,14 @@ const AIConsultant: React.FC = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isOpen]);
+
+  // Auto-hide callout after 10 seconds if not interacted
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowCallout(false);
+    }, 10000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
@@ -70,6 +87,19 @@ const AIConsultant: React.FC = () => {
 
   return (
     <>
+      {/* Callout Bubble - Convite para usar a IA */}
+      {showCallout && !isOpen && (
+        <div className="ai-callout" onClick={toggleChat}>
+          <div className="ai-callout-text">
+            <Sparkles size={14} className="text-accent" />
+            <span>Posso ajudar com seu projeto?</span>
+          </div>
+          <button onClick={closeCallout} className="ai-callout-close" aria-label="Fechar aviso">
+            <X size={12} />
+          </button>
+        </div>
+      )}
+
       {/* Floating Button */}
       <button
         onClick={toggleChat}
