@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ChatMessage } from "../types";
 
 const SYSTEM_INSTRUCTION = `
@@ -16,45 +16,39 @@ export const sendMessageToGemini = async (
   history: ChatMessage[],
   newMessage: string
 ): Promise<string> => {
-<<<<<<< HEAD
-  // Correção 1: Usando import.meta.env para ler a chave no Vite
   const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
   if (!apiKey) {
-=======
-  // A API Key deve estar configurada no ambiente (arquivo .env ou variáveis de sistema)
-  if (!process.env.API_KEY) {
->>>>>>> 4a6aba5e4f187fb64fbe6163c67b67abf3dc92ea
     return "Desculpe, o serviço de IA não está configurado corretamente (API Key ausente).";
   }
 
   try {
-<<<<<<< HEAD
-    const aiClient = new GoogleGenAI({ apiKey: apiKey });
-=======
-    const aiClient = new GoogleGenAI({ apiKey: process.env.API_KEY });
->>>>>>> 4a6aba5e4f187fb64fbe6163c67b67abf3dc92ea
+    // Inicializa a biblioteca correta
+    const genAI = new GoogleGenerativeAI(apiKey);
 
-    const chat = aiClient.chats.create({
-      // Correção 2: Utilizando um modelo válido e rápido para chat
+    // Configura o modelo de IA e as instruções do sistema
+    const model = genAI.getGenerativeModel({
       model: 'gemini-2.0-flash', 
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.7,
-<<<<<<< HEAD
-        maxOutputTokens: 150, 
-=======
-        maxOutputTokens: 150, // Força a resposta a ser curta fisicamente
->>>>>>> 4a6aba5e4f187fb64fbe6163c67b67abf3dc92ea
-      },
-      history: history.map(msg => ({
-        role: msg.role,
-        parts: [{ text: msg.text }]
-      }))
+      systemInstruction: SYSTEM_INSTRUCTION,
     });
 
-    const result = await chat.sendMessage({ message: newMessage });
-    return result.text || "Desculpe, não consegui processar sua resposta.";
+    // Prepara o histórico da conversa no formato exigido
+    const chat = model.startChat({
+      history: history.map(msg => ({
+        role: msg.role === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.text }]
+      })),
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 150,
+      }
+    });
+
+    // Envia a nova mensagem e aguarda a resposta
+    const result = await chat.sendMessage(newMessage);
+    const response = result.response;
+    
+    return response.text() || "Desculpe, não consegui processar sua resposta.";
   } catch (error) {
     console.error("Erro ao comunicar com Gemini:", error);
     return "Tive um problema técnico momentâneo. Por favor, tente novamente.";
