@@ -73,9 +73,7 @@ const AIConsultant: React.FC = () => {
       {/* Floating Button */}
       <button
         onClick={toggleChat}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center ${
-          isOpen ? 'bg-stone-800 rotate-90' : 'bg-accent hover:bg-yellow-600'
-        } text-white`}
+        className={`ai-fab ${isOpen ? 'open' : 'closed'}`}
         aria-label="Abrir consultor de design"
       >
         {isOpen ? <X size={24} /> : <MessageSquare size={24} />}
@@ -83,42 +81,36 @@ const AIConsultant: React.FC = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-40 w-full max-w-[350px] sm:max-w-[400px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-stone-100 animate-in slide-in-from-bottom-5 duration-300">
+        <div className="ai-window">
           
           {/* Header */}
-          <div className="bg-stone-900 p-4 text-white flex items-center gap-3">
-            <div className="bg-accent/20 p-2 rounded-full">
+          <div className="ai-header">
+            <div className="ai-icon-bg">
               <Sparkles size={20} className="text-accent" />
             </div>
             <div>
-              <h3 className="font-serif font-semibold text-lg">Zatti IA</h3>
-              <p className="text-xs text-stone-400">Consultora de Design</p>
+              <h3 className="font-serif font-bold">Zatti IA</h3>
+              <p className="text-sm opacity-75">Consultora de Design</p>
             </div>
           </div>
 
           {/* Messages Area */}
-          <div className="flex-1 h-[400px] overflow-y-auto p-4 bg-stone-50 space-y-4">
+          <div className="ai-messages-area">
             {messages.map((msg) => (
               <div
                 key={msg.id}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`ai-message-row ${msg.role}`}
               >
-                <div
-                  className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${
-                    msg.role === 'user'
-                      ? 'bg-stone-800 text-white rounded-br-none'
-                      : 'bg-white text-stone-800 border border-stone-200 shadow-sm rounded-bl-none'
-                  }`}
-                >
+                <div className={`ai-bubble ${msg.role}`}>
                   {msg.text}
                 </div>
               </div>
             ))}
             {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-white border border-stone-200 p-3 rounded-2xl rounded-bl-none shadow-sm flex items-center gap-2">
-                  <Loader2 size={16} className="animate-spin text-accent" />
-                  <span className="text-xs text-stone-500">Digitando...</span>
+              <div className="ai-message-row model">
+                <div className="ai-bubble model" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Loader2 size={16} className="text-accent" style={{ animation: 'spin 1s linear infinite' }} />
+                  <span style={{ fontSize: '0.75rem', color: '#78716c' }}>Digitando...</span>
                 </div>
               </div>
             )}
@@ -126,31 +118,34 @@ const AIConsultant: React.FC = () => {
           </div>
 
           {/* Input Area */}
-          <div className="p-4 bg-white border-t border-stone-100">
-            <div className="flex items-center gap-2 bg-stone-50 rounded-full px-4 py-2 border border-stone-200 focus-within:border-accent transition-colors">
+          <div className="ai-input-area">
+            <div className="ai-input-wrapper">
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder="Ex: Qual cor combina com madeira?"
-                className="flex-1 bg-transparent outline-none text-sm text-stone-700 placeholder:text-stone-400"
+                className="ai-input"
                 disabled={isLoading}
               />
               <button
                 onClick={handleSend}
                 disabled={isLoading || !input.trim()}
-                className="text-accent hover:text-yellow-700 disabled:opacity-50 transition-colors"
+                className="ai-send-btn"
               >
                 <Send size={18} />
               </button>
             </div>
-            <div className="text-center mt-2">
-              <p className="text-[10px] text-stone-400">IA pode cometer erros. Verifique informações importantes.</p>
+            <div className="ai-disclaimer">
+              <p>IA pode cometer erros. Verifique informações importantes.</p>
             </div>
           </div>
         </div>
       )}
+      <style>{`
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+      `}</style>
     </>
   );
 };
