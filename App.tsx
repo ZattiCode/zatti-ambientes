@@ -199,7 +199,7 @@ function App() {
       <section id="home" className="hero">
         <div className="hero-bg-wrapper">
           <img
-            src="/assets/projetos/background.png"
+            src="/zatti-ambientes/assets/projetos/background.png"
             alt="Interior de luxo"
             className="hero-img"
             style={{ animation: 'none' }} // Assuming animation is handled by CSS class or reset

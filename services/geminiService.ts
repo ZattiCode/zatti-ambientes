@@ -21,8 +21,7 @@ export const sendMessageToGemini = async (
 
   if (!apiKey) return "Erro: Chave API não encontrada.";
 
-  // ATENÇÃO: Se o modelo que funcionou para você foi outro, apenas ajuste o nome aqui!
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`;
   
   const contents = history.map(msg => ({
     role: msg.role === 'user' ? 'user' : 'model',
